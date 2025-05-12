@@ -16,12 +16,12 @@ A Kotlin/Spring Boot service that ingests live data from cat & dog trackers, sto
 
 *Influenced by DDD / Hexagonal architecture, but intentionally lightweight.*
 
-| Layer                     | Responsibility                                 | Key artefacts                           |
-|---------------------------|------------------------------------------------|-----------------------------------------|
-| **Web / Presentation**    | HTTP, JSON, validation, RFC‑7807 error mapping | `PetController`, `RestExceptionHandler` |
-| **Service / Application** | Transactions, orchestration, DTO mapping       | `PetServiceImpl`, commands & DTOs       |
-| **Domain Model**          | Business rules & invariants                    | `PetEntity`, `PetType`, `TrackerType`   |
-| **Data Access (Adapter)** | Persistence behind a port (`PetDao`)           | `PetDaoImpl`, `JpaPetRepository`        |
+| Layer                           | Responsibility                                 | Key artefacts                           |
+|---------------------------------|------------------------------------------------|-----------------------------------------|
+| **Web / Presentation**          | HTTP, JSON, validation, RFC‑7807 error mapping | `PetController`, `RestExceptionHandler` |
+| **Service / Application**       | Transactions, orchestration, DTO mapping       | `PetServiceImpl`, commands & DTOs       |
+| **Domain Model**                | Business rules & invariants                    | `PetEntity`, `PetType`, `TrackerType`   |
+| **Infra/Data Access (Adapter)** | Persistence behind a port (`PetDao`)           | `PetDaoImpl`, `JpaPetRepository`        |
 
 *Changing the storage technology only requires another **PetDao** implementation; no service or controller code
 changes.*
@@ -43,6 +43,13 @@ mvn spring-boot:run    # app starts on http://localhost:8080
 ```
 mvn test     # unit + slice + controller tests
 ```
+
+## Coverage
+Here is the test coverage report:
+
+<img src="img.png" alt="img" width="350" />
+
+[//]: # (![img.png]&#40;img.png&#41;)
 
 ---
 
