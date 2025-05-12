@@ -3,8 +3,7 @@ package demo.tractive.demo.app
 import demo.tractive.demo.app.dto.PetCreateCommand
 import demo.tractive.demo.app.dto.PetResponseDTO
 import demo.tractive.demo.app.dto.PetTrackingCommand
-import demo.tractive.demo.domain.model.PetType
-import demo.tractive.demo.domain.model.TrackerType
+import demo.tractive.demo.domain.dao.dto.CountProjection
 
 /**
  * Service interface for managing pets and their tracking information.
@@ -42,5 +41,5 @@ interface PetService {
      * @return A map where the key is the `PetType` and the value is another map
      *         with `TrackerType` as the key and the count as the value.
      */
-    fun countOutsideByType(): Map<PetType, Map<TrackerType, Long>>
+    fun countOutsideByType(): List<CountProjection>
 }

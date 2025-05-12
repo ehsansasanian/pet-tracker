@@ -24,4 +24,3 @@ data class PetResponseDTO(
         )
     }
 }
-typealias AggregateDto = Map<PetType, Map<TrackerType, Long>>
