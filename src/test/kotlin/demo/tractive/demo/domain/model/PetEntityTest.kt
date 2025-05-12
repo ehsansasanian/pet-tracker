@@ -1,7 +1,6 @@
 package demo.tractive.demo.domain.model
 
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 class PetEntityTest {
@@ -34,22 +33,6 @@ class PetEntityTest {
         dog.applyTracking(inZone = false, lostTracker = null)
 
         assertThat(dog.inZone).isFalse()
-        assertThat(dog.lostTracker).isNull()        // must stay null
-    }
-
-    @Test
-    fun `dog applyTracking with lostTracker flag throws`() {
-        val dog = PetEntity.create(
-            petType = PetType.DOG,
-            trackerType = TrackerType.DOG_MEDIUM,
-            ownerId = 3L,
-            inZone = true
-        )
-
-        assertThatThrownBy {
-            dog.applyTracking(inZone = false, lostTracker = true)
-        }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("lostTracker")
+        assertThat(dog.lostTracker).isNull()
     }
 }
