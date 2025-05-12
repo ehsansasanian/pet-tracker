@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 class PetEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    var id: Long,
+    var id: Long? = null,
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
