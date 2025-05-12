@@ -26,22 +26,26 @@ class PetServiceImpl(private val dao: PetDao) : PetService {
     @Transactional
     override fun save(pet: PetCreateCommand): PetResponseDTO {
         logger.info("Saving pet: $pet")
-        // todo: handle lostTracker
         return PetResponseDTO.fromEntity(dao.save(pet.toEntity()))
     }
 
     @Transactional
-    override fun ingestTracking(command: PetTrackingCommand): PetResponseDTO {
-        val pet = dao.findById(command.id)
+    override fun ingestTracking(id: Long, command: PetTrackingCommand): PetResponseDTO {
+        val pet = dao.findById(id)
         // Ideal here would be to use a 'service layer' dedicated exception with custom exception handler.
         // Due to time constraints I used something simple with a default exception handling
-            ?: throw EntityNotFoundException("Pet id=${command.id} not found")
+            ?: throw EntityNotFoundException("Pet id=${id} not found")
 
         logger.info("Ingesting tracking for pet: $pet")
 
-        // todo: handle lostTracker
         pet.applyTracking(command.inZone, command.lostTracker)
         return PetResponseDTO.fromEntity(pet)
+    }
+
+    override fun findById(id: Long): PetResponseDTO {
+        return dao.findById(id)
+            ?.let { PetResponseDTO.fromEntity(it) }
+            ?: throw EntityNotFoundException("Pet id=$id not found")
     }
 
     override fun countOutsideByType(): List<CountProjection> {

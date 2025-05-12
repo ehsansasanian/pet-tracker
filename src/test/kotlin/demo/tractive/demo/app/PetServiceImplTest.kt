@@ -75,9 +75,9 @@ class PetServiceImplTest {
 
         every { dao.findById(1L) } returns entitySpy
 
-        val cmd = PetTrackingCommand(id = 1L, inZone = false, lostTracker = true)
+        val cmd = PetTrackingCommand(inZone = false, lostTracker = true)
 
-        val updated = service.ingestTracking(cmd)
+        val updated = service.ingestTracking(1L, cmd)
 
         verify { entitySpy.applyTracking(false, true) }
         assertThat(updated.inZone).isFalse()
@@ -88,9 +88,9 @@ class PetServiceImplTest {
     fun `ingestTracking throws when pet not found`() {
         every { dao.findById(42L) } returns null
 
-        val cmd = PetTrackingCommand(id = 42L, inZone = true)
+        val cmd = PetTrackingCommand(inZone = true)
 
-        assertThatThrownBy { service.ingestTracking(cmd) }
+        assertThatThrownBy { service.ingestTracking(42L, cmd) }
             .isInstanceOf(EntityNotFoundException::class.java)
             .hasMessageContaining("42")
     }

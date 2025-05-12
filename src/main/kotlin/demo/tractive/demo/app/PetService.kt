@@ -20,6 +20,14 @@ interface PetService {
     fun findAll(inZone: Boolean?): List<PetResponseDTO>
 
     /**
+     * Retrieves a pet by its unique identifier.
+     *
+     * @param id The unique identifier of the pet.
+     * @return A `PetResponseDTO` representing the pet.
+     */
+    fun findById(id: Long): PetResponseDTO
+
+    /**
      * Saves a new pet entity based on the provided creation command.
      *
      * @param pet The `PetCreateCommand` containing the details of the pet to be created.
@@ -33,7 +41,7 @@ interface PetService {
      * @param command The `PetTrackingCommand` containing the tracking details to be updated.
      * @return A `PetResponseDTO` representing the updated pet.
      */
-    fun ingestTracking(command: PetTrackingCommand): PetResponseDTO
+    fun ingestTracking(id: Long, command: PetTrackingCommand): PetResponseDTO
 
     /**
      * Counts the number of pets outside their designated zones, grouped by pet type and tracker type.

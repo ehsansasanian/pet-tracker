@@ -45,11 +45,8 @@ class PetEntity(
     var lostTracker: Boolean? = null
 ) {
     fun applyTracking(inZone: Boolean, lostTracker: Boolean?) {
-        if (lostTracker != null && petType != PetType.CAT) {
-            throw IllegalArgumentException("lostTracker flag applies only to cats")
-        }
         this.inZone = inZone
-        if (petType == PetType.CAT && lostTracker != null) {
+        if (PetType.CAT == petType && lostTracker != null) {
             this.lostTracker = lostTracker
         }
     }
