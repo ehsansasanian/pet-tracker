@@ -41,12 +41,13 @@ class PetEntity(
 
     DB migration can be done via Flyway or Liquibase.
     */
-    val lostTracker: Boolean? = null
-)
+    var lostTracker: Boolean? = null
 
 enum class PetType { CAT, DOG }
 
-enum class TrackerType {
-    CAT_SMALL, CAT_BIG,
-    DOG_SMALL, DOG_MEDIUM, DOG_BIG
+enum class TrackerType(val allowedPetType: PetType) {
+    CAT_SMALL(PetType.CAT), CAT_BIG(PetType.CAT),
+    DOG_SMALL(PetType.DOG), DOG_MEDIUM(PetType.DOG), DOG_BIG(PetType.DOG);
+
+    fun isAllowedFor(petType: PetType) = petType == allowedPetType
 }
