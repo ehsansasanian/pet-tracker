@@ -71,6 +71,12 @@
 			<artifactId>kotlin-test-junit5</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.mockk</groupId>
+			<artifactId>mockk-jvm</artifactId>
+			<version>1.13.13</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

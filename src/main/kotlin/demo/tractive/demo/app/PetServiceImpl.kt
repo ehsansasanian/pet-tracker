@@ -33,7 +33,8 @@ class PetServiceImpl(private val dao: PetDao) : PetService {
     @Transactional
     override fun ingestTracking(command: PetTrackingCommand): PetResponseDTO {
         val pet = dao.findById(command.id)
-        // todo: change this exception
+        // Ideal here would be to use a 'service layer' dedicated exception with custom exception handler.
+        // Due to time constraints I used something simple with a default exception handling
             ?: throw EntityNotFoundException("Pet id=${command.id} not found")
 
         logger.info("Ingesting tracking for pet: $pet")

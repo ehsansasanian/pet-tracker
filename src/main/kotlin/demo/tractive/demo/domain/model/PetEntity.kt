@@ -36,9 +36,10 @@ class PetEntity(
     KISS Pattern:
 
     For simplicity, I accepted the tradeoff of having a nullable field rather than having a more complex logic.
-    In the case of more specific business logic related to either of the pet types, a separate table can be created
-    to keep the details related to the pet type.
+    In the case of more pet specific related attributes, a separate table with a FK in 'PetEntity' could be a
+    better solution (normalized table) to keep the details related to the pet type.
 
+    Example: Adding 'cats' and 'dogs' tables and having relation between them and 'pets' table.
     DB migration can be done via Flyway or Liquibase.
     */
     var lostTracker: Boolean? = null
