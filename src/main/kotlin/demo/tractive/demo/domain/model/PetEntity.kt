@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "pets")
-class Pet(
+class PetEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     var id: Long,
