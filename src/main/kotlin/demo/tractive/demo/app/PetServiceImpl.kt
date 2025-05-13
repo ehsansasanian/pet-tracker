@@ -2,6 +2,7 @@ package demo.tractive.demo.app
 
 import demo.tractive.demo.app.dto.PetCreateCommand
 import demo.tractive.demo.app.dto.PetResponseDTO
+import demo.tractive.demo.app.dto.PetSearchCriteria
 import demo.tractive.demo.app.dto.PetTrackingCommand
 import demo.tractive.demo.domain.dao.PetDao
 import demo.tractive.demo.domain.dao.dto.CountProjection
@@ -22,6 +23,9 @@ class PetServiceImpl(private val dao: PetDao) : PetService {
         return dao.findAll(inZone)
             .map { PetResponseDTO.fromEntity(it) }
     }
+
+    override fun search(criteria: PetSearchCriteria): List<PetResponseDTO> =
+        dao.search(criteria).map(PetResponseDTO::fromEntity)
 
     @Transactional
     override fun save(pet: PetCreateCommand): PetResponseDTO {

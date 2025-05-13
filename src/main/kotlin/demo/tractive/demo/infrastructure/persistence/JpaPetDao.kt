@@ -1,9 +1,15 @@
 package demo.tractive.demo.infrastructure.persistence
 
+import demo.tractive.demo.app.dto.PetSearchCriteria
 import demo.tractive.demo.domain.dao.PetDao
 import demo.tractive.demo.domain.dao.dto.CountProjection
 import demo.tractive.demo.domain.model.PetEntity
+import demo.tractive.demo.domain.model.PetType
+import demo.tractive.demo.domain.model.TrackerType
+import jakarta.persistence.criteria.Predicate
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Component
 
@@ -21,6 +27,20 @@ class JpaPetDao(private val repository: JpaPetRepository) : PetDao {
         }
     }
 
+    override fun search(criteria: PetSearchCriteria): MutableList<PetEntity> {
+        val spec = Specification<PetEntity> { root, _, cb ->
+            val predicates = mutableListOf<Predicate>()
+
+            criteria.petType?.let  { predicates += cb.equal(root.get<PetType>("petType"), it) }
+            criteria.trackerType?.let { predicates += cb.equal(root.get<TrackerType>("trackerType"), it) }
+            criteria.ownerId?.let { predicates += cb.equal(root.get<Long>("ownerId"), it) }
+            criteria.inZone?.let   { predicates += cb.equal(root.get<Boolean>("inZone"), it) }
+
+            cb.and(*predicates.toTypedArray())
+        }
+        return repository.findAll(spec)
+    }
+
     override fun save(petEntity: PetEntity): PetEntity {
         return repository.save(petEntity)
     }
@@ -30,7 +50,7 @@ class JpaPetDao(private val repository: JpaPetRepository) : PetDao {
     }
 }
 
-interface JpaPetRepository : JpaRepository<PetEntity, Long> {
+interface JpaPetRepository : JpaRepository<PetEntity, Long>, JpaSpecificationExecutor<PetEntity> {
 
     fun findByInZone(inZone: Boolean): List<PetEntity>
 

@@ -2,6 +2,7 @@ package demo.tractive.demo.app
 
 import demo.tractive.demo.app.dto.PetCreateCommand
 import demo.tractive.demo.app.dto.PetResponseDTO
+import demo.tractive.demo.app.dto.PetSearchCriteria
 import demo.tractive.demo.app.dto.PetTrackingCommand
 import demo.tractive.demo.domain.dao.dto.CountProjection
 
@@ -26,6 +27,14 @@ interface PetService {
      * @return A `PetResponseDTO` representing the pet.
      */
     fun findById(id: Long): PetResponseDTO
+
+    /**
+     * Searches for pets based on the provided search criteria.
+     *
+     * @param criteria The `PetSearchCriteria` containing the search parameters.
+     * @return A list of `PetResponseDTO` representing the matching pets.
+     */
+    fun search(criteria: PetSearchCriteria): List<PetResponseDTO>
 
     /**
      * Saves a new pet entity based on the provided creation command.

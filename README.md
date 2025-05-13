@@ -60,6 +60,7 @@ Here is the test coverage report:
 | **POST** | `/api/pets`                      | Create a new pet (returns 201 + Location)  |
 | **GET**  | `/api/pets`                      | List pets, optional \`?inZone=true         |
 | **GET**  | `/api/pets/{id}`                 | Fetch one pet by id                        |
+| **GET**  | `/api/pets/search`               | Search pets \'?inZone=true&ownerId=201&trackerType=DOG_SMALL&petType=DOG                            |
 | **POST** | `/api/pets/{id}/tracking`        | Update in‑zone / lost‑tracker flags        |
 | **GET**  | `/api/pets/outside-power-saving` | Aggregated counts of pets outside the zone |
 
